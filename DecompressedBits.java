@@ -1,3 +1,18 @@
+/*  Student information for assignment:
+ *
+ *  On MY honor, Khanh Van, this programming assignment is MY own work
+ *  and I have not provided this code to any other student.
+ *
+ *  Number of slip days used:
+ *
+ *  Student 1 : Khanh Van
+ *  UTEID: kqv69
+ *  email address: kvan27082002@gmail.com
+ *  Grader name: Skyler
+ *
+ *
+ */
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -6,7 +21,7 @@ import java.util.TreeMap;
 // this class's purpose is to take in the information from the SimpleHuffProcessor class (uncompressed method)
 // and use it to generate new file using SimpleHuffProcessor OutputStream.
 public class DecompressedBits {
-	
+
 	// instance variables
 	private BitInputStream inStream;
 	private int[] wordFreq;
@@ -16,21 +31,23 @@ public class DecompressedBits {
 	private int treeSize;
 	private int numBits;
 	private int format;
-	
+
 	// constructor for DecompressedBits class
 	// takes in BitsInputStream, BitOutputStreams and the format number
 	public DecompressedBits(BitInputStream in, BitOutputStream out, int format) throws IOException {
 		inStream = in;
 		treeArray = new int[IHuffConstants.ALPH_SIZE + 1];
 		this.format = format;
-		// checking the format to see if the file is under STORE_COUNTS or STORE_TREE format
+		// checking the format to see if the file is under STORE_COUNTS or STORE_TREE
+		// format
 		if (format == IHuffConstants.STORE_COUNTS) {
 			// if it is STORE_COUNTS format, create an array from its header and create a
 			// tree out of that array
 			createArray();
 			createTFA();
 		} else if (format == IHuffConstants.STORE_TREE) {
-			// if it is STORE_TREE format, create a tree directly from the data from its header
+			// if it is STORE_TREE format, create a tree directly from the data from its
+			// header
 			treeSize = inStream.readBits(IHuffConstants.BITS_PER_INT);
 			tree = createTFT(tree, inStream);
 		}
@@ -50,7 +67,7 @@ public class DecompressedBits {
 				// not adding the PSEUDO because uncompress wouldn't contain PSEUDO;
 				if (node.getValue() != IHuffConstants.PSEUDO_EOF) {
 					out.writeBits(IHuffConstants.BITS_PER_WORD, node.getValue());
-					//creating an array of frequencies as reading the file for debugging purposes.
+					// creating an array of frequencies as reading the file for debugging purposes.
 					treeArray[node.getValue()]++;
 					// adding BITS_PER_WORD (8) because each word/char will be 8 bits
 					numBits += IHuffConstants.BITS_PER_WORD;
@@ -66,13 +83,13 @@ public class DecompressedBits {
 		inStream.close();
 		out.close();
 	}
-	
+
 	// call this method in SimpleHuffProcessor to get the total number of bits
 	// of the de-compressed file
 	public int getBits() {
 		return numBits;
 	}
-	
+
 	// helper method to create an array out of the compressed file's data
 	// if the file format is under STORE_COUNTS only
 	private void createArray() throws IOException {
@@ -85,7 +102,7 @@ public class DecompressedBits {
 			}
 		}
 	}
-	
+
 	// method to create a tree out of the array that were created
 	// (STORE_COUNTS format)
 	private void createTFA() {
@@ -103,7 +120,7 @@ public class DecompressedBits {
 		}
 		tree = queue.dequeue();
 	}
-	
+
 	// method to create a tree directly from the data of the file's header
 	// (STORE_TREE)
 	private TreeNode createTFT(TreeNode node, BitInputStream input) throws IOException {
@@ -120,8 +137,7 @@ public class DecompressedBits {
 			return new TreeNode(input.readBits(IHuffConstants.BITS_PER_WORD + 1), 0);
 		}
 	}
-	
-	
+
 	// method to traverse through the tree to find the new bit data of the new file
 	private void mapRecursion(TreeNode node, Map<Integer, String> map, String s) {
 		if (node.isLeaf()) {
@@ -131,14 +147,15 @@ public class DecompressedBits {
 			mapRecursion(node.getRight(), map, s + '1');
 		}
 	}
-	
+
 	// method to actually create a map using the above method;
 	private void createMap() {
 		map = new HashMap<>();
 		mapRecursion(tree, map, "");
 	}
 
-	// method to return string to put in the parameter of showString in the SimpleHuffProcessor class
+	// method to return string to put in the parameter of showString in the
+	// SimpleHuffProcessor class
 	public String showDebug() {
 		Map<Integer, String> sortedMap = new TreeMap<>(map);
 		StringBuilder s = new StringBuilder();

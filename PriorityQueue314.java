@@ -1,3 +1,18 @@
+/*  Student information for assignment:
+ *
+ *  On MY honor, Khanh Van, this programming assignment is MY own work
+ *  and I have not provided this code to any other student.
+ *
+ *  Number of slip days used:
+ *
+ *  Student 1 : Khanh Van
+ *  UTEID: kqv69
+ *  email address: kvan27082002@gmail.com
+ *  Grader name: Skyler
+ *
+ *
+ */
+
 import java.util.LinkedList;
 
 /*
