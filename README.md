@@ -14,4 +14,4 @@ Huffman Coding is a widely-used algorithm for lossless data compression. This pr
 ## Authors
 
 - [Khanh Van](https://www.github.com/kvan278)
-- Professor Mike Scott - Univeristy of Texas
+- Professor Mike Scott - University of Texas
