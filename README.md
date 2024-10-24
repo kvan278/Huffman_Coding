@@ -11,7 +11,11 @@ Huffman Coding is a widely-used algorithm for lossless data compression. This pr
 - File I/O: Supports reading from and writing to files, enabling the compression and decompression of large datasets.
 
 
+## Framework Details
+This project leverages the framework created by Professor Mike Scott, which provides a robust foundation for implementing data structures and algorithms. The framework includes:
+- Priority Queue: Utilized for efficiently building the Huffman tree.
+- Binary Tree: Facilitates the representation of the Huffman coding tree.
 ## Authors
 
 - [Khanh Van](https://www.github.com/kvan278)
-- Professor Mike Scott - University of Texas
+- Professor Mike Scott - Univeristy of Texas
